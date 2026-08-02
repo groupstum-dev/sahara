@@ -1,7 +1,9 @@
 "use client";
 
+
 import { useState } from "react";
 import { createClient } from "@/lib/supabase";
+
 
 
 export default function Login() {
@@ -10,25 +12,20 @@ export default function Login() {
   const supabase = createClient();
 
 
-  const [email, setEmail] = useState("");
 
-  const [password, setPassword] = useState("");
+  const [email,setEmail] = useState("");
 
-  const [message, setMessage] = useState("");
+  const [password,setPassword] = useState("");
 
-  const [loading, setLoading] = useState(false);
-
+  const [message,setMessage] = useState("");
 
 
-  async function login() {
 
 
-    setLoading(true);
-
-    setMessage("");
+  async function login(){
 
 
-    const { error } =
+    const {error} =
       await supabase.auth.signInWithPassword({
 
         email,
@@ -39,24 +36,21 @@ export default function Login() {
 
 
 
-    if (error) {
+    if(error){
 
       setMessage(error.message);
 
+    }
 
-    } else {
-
+    else {
 
       window.location.href="/dashboard";
-
 
     }
 
 
-    setLoading(false);
-
-
   }
+
 
 
 
@@ -66,14 +60,15 @@ export default function Login() {
 
 
       <h1>
+
         Login to Sahara
+
       </h1>
 
 
 
-      <input
 
-        className="input"
+      <input
 
         type="email"
 
@@ -87,9 +82,9 @@ export default function Login() {
 
 
 
-      <input
 
-        className="input"
+
+      <input
 
         type="password"
 
@@ -103,19 +98,14 @@ export default function Login() {
 
 
 
-      <button
 
-        className="btn btn-primary"
 
-        onClick={login}
+      <button onClick={login}>
 
-        disabled={loading}
-
-      >
-
-        {loading ? "Logging in..." : "Login"}
+        Login
 
       </button>
+
 
 
 
@@ -124,7 +114,6 @@ export default function Login() {
         {message}
 
       </p>
-
 
 
     </main>
