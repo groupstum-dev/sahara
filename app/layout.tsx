@@ -9,6 +9,8 @@ const inter = Inter({
 
   variable: "--font-inter",
 
+  display: "swap",
+
 });
 
 
@@ -24,16 +26,16 @@ export const metadata: Metadata = {
 
 
   description:
-    "Reward crowdfunding platform connecting African creators, entrepreneurs, and innovators with global supporters.",
+    "Sahara is a reward-based crowdfunding platform empowering African creators, entrepreneurs, and innovators through global support.",
 
 
   keywords: [
 
+    "Sahara",
+
+    "African innovation",
+
     "crowdfunding",
-
-    "Africa",
-
-    "innovation",
 
     "startups",
 
@@ -41,19 +43,56 @@ export const metadata: Metadata = {
 
     "creators",
 
-    "social impact"
+    "funding",
+
+    "social impact",
+
+    "technology"
 
   ],
 
 
+  authors: [
+
+    {
+
+      name: "Sahara",
+
+    },
+
+  ],
+
+
+  creator: "Sahara",
+
+
   openGraph: {
 
-    title: "Sahara | African Innovation Crowdfunding",
+    title:
+      "Sahara | Empowering African Innovation Through Global Support",
+
 
     description:
-      "Support African innovators and help bring impactful ideas to life.",
+      "Discover, support, and fund innovative projects created by African entrepreneurs and innovators.",
+
 
     type: "website",
+
+    siteName: "Sahara",
+
+  },
+
+
+  twitter: {
+
+    card: "summary_large_image",
+
+    title:
+      "Sahara | African Innovation Crowdfunding",
+
+
+    description:
+      "Support African creators building the future.",
 
   },
 
