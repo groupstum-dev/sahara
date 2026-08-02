@@ -1,20 +1,30 @@
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
 
-export const metadata = {
+const inter = Inter({
 
-  title: "Sahara",
+  subsets: ["latin"],
+
+  variable: "--font-inter",
+
+});
+
+
+export const metadata: Metadata = {
+
+  title: "Sahara | Africa's Innovation Platform",
 
   description:
-    "Reward crowdfunding platform for African innovators"
+    "Launch ideas, fund innovation, and connect African creators with global supporters.",
 
 };
 
 
-
 export default function RootLayout({
 
-  children
+  children,
 
 }: Readonly<{
 
@@ -22,18 +32,15 @@ export default function RootLayout({
 
 }>) {
 
-
   return (
 
     <html lang="en">
 
-
-      <body>
+      <body className={inter.variable}>
 
         {children}
 
       </body>
-
 
     </html>
 
