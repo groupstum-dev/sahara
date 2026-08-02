@@ -1,60 +1,86 @@
 "use client";
 
+
 import { useState } from "react";
+
 import { createClient } from "@/lib/supabase";
+
 
 
 export default function Signup() {
 
+
   const supabase = createClient();
 
 
-  const [name, setName] = useState("");
+  const [name,setName] = useState("");
 
-  const [email, setEmail] = useState("");
+  const [email,setEmail] = useState("");
 
-  const [password, setPassword] = useState("");
+  const [password,setPassword] = useState("");
 
-  const [message, setMessage] = useState("");
+  const [role,setRole] = useState("backer");
+
+  const [message,setMessage] = useState("");
+
+  const [loading,setLoading] = useState(false);
 
 
 
-  async function signup() {
+
+  async function signup(){
 
 
-    const { error } = await supabase.auth.signUp({
+    setLoading(true);
 
-      email,
 
-      password,
+    const {error} =
+      await supabase.auth.signUp({
 
-      options: {
+        email,
 
-        data: {
+        password,
 
-          full_name: name
+
+        options:{
+
+
+          data:{
+
+
+            full_name:name,
+
+            role
+
+          }
 
         }
 
-      }
-
-    });
+      });
 
 
 
-    if (error) {
+    if(error){
 
       setMessage(error.message);
 
-    } else {
+
+    }else{
+
 
       setMessage(
         "Account created. Check your email to confirm."
       );
 
+
     }
 
+
+    setLoading(false);
+
+
   }
+
 
 
 
@@ -68,18 +94,24 @@ export default function Signup() {
       </h1>
 
 
+
       <input
+
+        className="input"
 
         placeholder="Full Name"
 
         value={name}
 
-        onChange={(e) => setName(e.target.value)}
+        onChange={(e)=>setName(e.target.value)}
 
       />
 
 
+
       <input
+
+        className="input"
 
         type="email"
 
@@ -87,12 +119,15 @@ export default function Signup() {
 
         value={email}
 
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e)=>setEmail(e.target.value)}
 
       />
 
 
+
       <input
+
+        className="input"
 
         type="password"
 
@@ -100,23 +135,69 @@ export default function Signup() {
 
         value={password}
 
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e)=>setPassword(e.target.value)}
 
       />
 
 
-      <button onClick={signup}>
-        Create Account
+
+      <select
+
+        className="input"
+
+        value={role}
+
+        onChange={(e)=>setRole(e.target.value)}
+
+      >
+
+        <option value="backer">
+
+          Support projects
+
+        </option>
+
+
+        <option value="creator">
+
+          Launch projects
+
+        </option>
+
+
+      </select>
+
+
+
+
+      <button
+
+        className="btn btn-primary"
+
+        onClick={signup}
+
+        disabled={loading}
+
+      >
+
+        {loading ? "Creating..." : "Create Account"}
+
       </button>
 
 
+
+
       <p>
+
         {message}
+
       </p>
+
 
 
     </main>
 
   );
+
 
 }
