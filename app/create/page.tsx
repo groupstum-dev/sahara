@@ -1,59 +1,216 @@
-export default function CreateCampaignPage() {
-  return (
-    <main className="dashboard">
-
-      <div className="dashboard-card">
-
-        <div className="badge">
-          Create Campaign
-        </div>
-
-        <h1 className="section-title">
-          Launch your idea
-        </h1>
-
-        <p className="section-text">
-          Share your innovation with supporters around the world.
-        </p>
+"use client";
 
 
-        <form className="campaign-form">
-
-          <input
-            placeholder="Campaign title"
-          />
+import {useState} from "react";
 
 
-          <textarea
-            placeholder="Tell your story..."
-            rows={6}
-          />
+
+export default function CreateCampaignPage(){
 
 
-          <input
-            placeholder="Funding goal ($)"
-            type="number"
-          />
+const [idea,setIdea]=useState("");
+
+const [loading,setLoading]=useState(false);
+
+const [result,setResult]=useState<any>(null);
 
 
-          <input
-            placeholder="Category"
-          />
 
 
-          <button
-            className="btn-primary"
-            type="button"
-          >
-            Publish Campaign
-          </button>
+
+async function generateAI(){
 
 
-        </form>
+setLoading(true);
 
 
-      </div>
 
-    </main>
-  );
+const res = await fetch(
+
+"/api/ai/campaign",
+
+{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+idea
+
+})
+
+}
+
+);
+
+
+
+const data = await res.json();
+
+
+setResult(data);
+
+
+setLoading(false);
+
+
+}
+
+
+
+
+
+
+return (
+
+<main className="dashboard">
+
+
+<div className="dashboard-card">
+
+
+<div className="badge">
+
+Sahara AI Studio
+
+</div>
+
+
+
+<h1 className="section-title">
+
+Create a Winning Campaign
+
+</h1>
+
+
+
+<p className="section-text">
+
+Describe your idea and AI will help you
+create a powerful campaign.
+
+</p>
+
+
+
+
+<textarea
+
+className="campaign-input"
+
+placeholder="Example: Solar water pumps for African farmers"
+
+value={idea}
+
+onChange={(e)=>setIdea(e.target.value)}
+
+rows={5}
+
+/>
+
+
+
+
+<button
+
+className="btn-primary"
+
+onClick={generateAI}
+
+>
+
+{
+
+loading
+
+?
+
+"Generating..."
+
+:
+
+"Generate With AI ✨"
+
+}
+
+
+</button>
+
+
+
+
+
+{
+result &&
+
+<div className="ai-result">
+
+
+<h2>
+
+{result.title}
+
+</h2>
+
+
+<p>
+
+{result.description}
+
+</p>
+
+
+
+<h3>
+
+SEO Keywords
+
+</h3>
+
+
+<p>
+
+{result.seo.join(", ")}
+
+</p>
+
+
+
+<h3>
+
+Social Post
+
+</h3>
+
+
+<p>
+
+{result.social}
+
+</p>
+
+
+
+</div>
+
+}
+
+
+
+</div>
+
+
+</main>
+
+
+);
+
+
 }
