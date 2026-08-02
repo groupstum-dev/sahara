@@ -2,202 +2,200 @@
 
 
 import { useState } from "react";
-
+import Link from "next/link";
 import { createClient } from "@/lib/supabase";
 
 
 
-export default function Signup() {
+export default function Signup(){
 
 
-  const supabase = createClient();
+const supabase=createClient();
 
 
-  const [name,setName] = useState("");
 
-  const [email,setEmail] = useState("");
+const [name,setName]=useState("");
 
-  const [password,setPassword] = useState("");
+const [email,setEmail]=useState("");
 
-  const [role,setRole] = useState("backer");
+const [password,setPassword]=useState("");
 
-  const [message,setMessage] = useState("");
+const [message,setMessage]=useState("");
 
-  const [loading,setLoading] = useState(false);
 
 
 
 
-  async function signup(){
+async function signup(){
 
 
-    setLoading(true);
+const {error}=await supabase.auth.signUp({
 
+email,
 
-    const {error} =
-      await supabase.auth.signUp({
+password,
 
-        email,
+options:{
 
-        password,
+data:{
 
+full_name:name
 
-        options:{
+}
 
+}
 
-          data:{
+});
 
 
-            full_name:name,
 
-            role
+if(error){
 
-          }
+setMessage(error.message);
 
-        }
+}
 
-      });
+else{
 
+setMessage(
 
+"Account created. Check your email."
 
-    if(error){
+);
 
-      setMessage(error.message);
+}
 
 
-    }else{
+}
 
 
-      setMessage(
-        "Account created. Check your email to confirm."
-      );
 
 
-    }
 
 
-    setLoading(false);
+return (
 
+<main className="auth">
 
-  }
 
+<div className="dashboard-card auth-card">
 
 
+<div className="logo">
 
-  return (
+Sahara
 
-    <main className="auth">
+</div>
 
 
-      <h1>
-        Create Sahara Account
-      </h1>
 
+<h1>
 
+Create account
 
-      <input
+</h1>
 
-        className="input"
 
-        placeholder="Full Name"
 
-        value={name}
+<p className="section-text">
 
-        onChange={(e)=>setName(e.target.value)}
+Start building your innovation
+community today.
 
-      />
+</p>
 
 
 
-      <input
 
-        className="input"
+<input
 
-        type="email"
+placeholder="Full name"
 
-        placeholder="Email"
+value={name}
 
-        value={email}
+onChange={(e)=>setName(e.target.value)}
 
-        onChange={(e)=>setEmail(e.target.value)}
+/>
 
-      />
 
 
 
-      <input
+<input
 
-        className="input"
+type="email"
 
-        type="password"
+placeholder="Email address"
 
-        placeholder="Password"
+value={email}
 
-        value={password}
+onChange={(e)=>setEmail(e.target.value)}
 
-        onChange={(e)=>setPassword(e.target.value)}
+/>
 
-      />
 
 
 
-      <select
+<input
 
-        className="input"
+type="password"
 
-        value={role}
+placeholder="Password"
 
-        onChange={(e)=>setRole(e.target.value)}
+value={password}
 
-      >
+onChange={(e)=>setPassword(e.target.value)}
 
-        <option value="backer">
+/>
 
-          Support projects
 
-        </option>
 
 
-        <option value="creator">
+<button
 
-          Launch projects
+className="btn-primary"
 
-        </option>
+onClick={signup}
 
+>
 
-      </select>
+Create Account
 
+</button>
 
 
 
-      <button
 
-        className="btn btn-primary"
+<p>
 
-        onClick={signup}
+{message}
 
-        disabled={loading}
+</p>
 
-      >
 
-        {loading ? "Creating..." : "Create Account"}
 
-      </button>
 
+<p>
 
+Already have an account?
 
+{" "}
 
-      <p>
+<Link href="/login">
 
-        {message}
+Login
 
-      </p>
+</Link>
 
 
+</p>
 
-    </main>
 
-  );
+</div>
+
+
+</main>
+
+);
 
 
 }
