@@ -9,29 +9,31 @@ export default function Signup() {
   const supabase = createClient();
 
 
-  const [name,setName] = useState("");
+  const [name, setName] = useState("");
 
-  const [email,setEmail] = useState("");
+  const [email, setEmail] = useState("");
 
-  const [password,setPassword] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [message,setMessage] = useState("");
-
-
-
-  async function signup(){
+  const [message, setMessage] = useState("");
 
 
-    const {error} = await supabase.auth.signUp({
+
+  async function signup() {
+
+
+    const { error } = await supabase.auth.signUp({
 
       email,
 
       password,
 
-      options:{
+      options: {
 
-        data:{
-          full_name:name
+        data: {
+
+          full_name: name
+
         }
 
       }
@@ -40,14 +42,14 @@ export default function Signup() {
 
 
 
-    if(error){
+    if (error) {
 
       setMessage(error.message);
 
-    }else{
+    } else {
 
       setMessage(
-        "Account created. Check your email for confirmation."
+        "Account created. Check your email to confirm."
       );
 
     }
@@ -60,27 +62,32 @@ export default function Signup() {
 
     <main className="auth">
 
-      <h1>Create Sahara Account</h1>
+
+      <h1>
+        Create Sahara Account
+      </h1>
 
 
       <input
 
-        placeholder="Full name"
+        placeholder="Full Name"
 
         value={name}
 
-        onChange={(e)=>setName(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
 
       />
 
 
       <input
 
+        type="email"
+
         placeholder="Email"
 
         value={email}
 
-        onChange={(e)=>setEmail(e.target.value)}
+        onChange={(e) => setEmail(e.target.value)}
 
       />
 
@@ -93,19 +100,19 @@ export default function Signup() {
 
         value={password}
 
-        onChange={(e)=>setPassword(e.target.value)}
+        onChange={(e) => setPassword(e.target.value)}
 
       />
 
 
       <button onClick={signup}>
-
-        Sign Up
-
+        Create Account
       </button>
 
 
-      <p>{message}</p>
+      <p>
+        {message}
+      </p>
 
 
     </main>
