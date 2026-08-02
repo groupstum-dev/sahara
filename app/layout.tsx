@@ -1,72 +1,20 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
 
-const inter = Inter({
+export const metadata = {
 
-  subsets: ["latin"],
-
-  variable: "--font-inter",
-
-  display: "swap"
-
-});
-
-
-export const metadata: Metadata = {
-
-  title: {
-
-    default: "Sahara",
-
-    template: "%s | Sahara"
-
-  },
-
+  title: "Sahara",
 
   description:
-    "Sahara is a reward crowdfunding platform empowering African creators, entrepreneurs, and innovators through global support.",
-
-
-  keywords: [
-
-    "crowdfunding",
-
-    "Africa",
-
-    "innovation",
-
-    "startups",
-
-    "entrepreneurs",
-
-    "creators"
-
-  ],
-
-
-  openGraph: {
-
-    title:
-      "Sahara | African Innovation Crowdfunding",
-
-    description:
-      "Support African innovators building the future.",
-
-    type: "website",
-
-    siteName: "Sahara"
-
-  },
-
+    "Reward crowdfunding platform for African innovators"
 
 };
 
 
+
 export default function RootLayout({
 
-  children,
+  children
 
 }: Readonly<{
 
@@ -79,11 +27,13 @@ export default function RootLayout({
 
     <html lang="en">
 
-      <body className={inter.variable}>
+
+      <body>
 
         {children}
 
       </body>
+
 
     </html>
 
