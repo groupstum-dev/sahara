@@ -1,10 +1,10 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 
 
-const campaigns = [
+const campaigns = {
 
-  {
-    id: "solar-africa",
+  "solar-africa": {
 
     title: "Solar Energy Solutions",
 
@@ -17,17 +17,47 @@ const campaigns = [
     description:
       "Affordable solar-powered solutions helping rural communities access clean energy.",
 
+    story:
+      "Millions of families across Africa still lack reliable access to electricity. This project builds affordable solar systems that empower communities, schools, and small businesses with clean energy.",
+
     raised: 25000,
 
     goal: 50000,
 
-    supporters: 120
+    supporters: 120,
+
+
+    rewards: [
+
+      {
+        amount: 20,
+        title: "Supporter",
+        description:
+          "Receive project updates and a thank-you message."
+      },
+
+
+      {
+        amount: 100,
+        title: "Early Supporter",
+        description:
+          "Receive updates and exclusive project materials."
+      },
+
+
+      {
+        amount: 500,
+        title: "Impact Partner",
+        description:
+          "Become a recognized supporter of the solar initiative."
+      }
+
+    ]
 
   },
 
 
-  {
-    id: "smart-farming",
+  "smart-farming": {
 
     title: "Smart Farming Technology",
 
@@ -40,292 +70,304 @@ const campaigns = [
     description:
       "IoT farming tools helping small farmers improve crop production.",
 
+    story:
+      "Small farmers face challenges with unpredictable weather and limited access to technology. This project provides smart farming tools to improve productivity.",
+
     raised: 18000,
 
     goal: 40000,
 
-    supporters: 86
-
-  },
+    supporters: 86,
 
 
-  {
-    id: "clean-water",
+    rewards: [
 
-    title: "Clean Water Initiative",
+      {
+        amount: 25,
+        title: "Farm Supporter",
+        description:
+          "Receive project updates."
+      },
 
-    category: "Community",
 
-    creator: "Grace Wanjiku",
+      {
+        amount: 250,
+        title: "Technology Partner",
+        description:
+          "Get early access updates."
+      }
 
-    country: "Kenya 🇰🇪",
-
-    description:
-      "Building sustainable water systems for underserved communities.",
-
-    raised: 32000,
-
-    goal: 50000,
-
-    supporters: 210
+    ]
 
   }
 
-];
+};
 
 
 
-export default function CampaignsPage() {
+type PageProps = {
+
+  params: Promise<{
+
+    id: string;
+
+  }>;
+
+};
+
+
+
+export default async function CampaignPage({
+
+  params
+
+}: PageProps) {
+
+
+  const { id } = await params;
+
+
+
+  const campaign =
+    campaigns[id as keyof typeof campaigns];
+
+
+
+  if (!campaign) {
+
+    notFound();
+
+  }
+
+
+
+  const progress = Math.round(
+
+    (campaign.raised / campaign.goal) * 100
+
+  );
+
 
 
   return (
 
-    <main className="campaign-page">
+    <main className="campaign-detail">
 
 
-      <section className="campaign-header">
+      <Link
 
+        href="/campaigns"
 
-        <h1>
-          Discover Projects
-        </h1>
+        className="back-link"
 
+      >
 
-        <p>
+        ← Back to projects
 
-          Support African innovators building solutions
-          that create real-world impact.
-
-        </p>
+      </Link>
 
 
 
-        <div className="campaign-search">
+
+      <section className="campaign-hero">
 
 
-          <input
+        <div className="campaign-main">
 
-            className="input"
 
-            placeholder="Search campaigns..."
+          <span className="campaign-category">
 
-          />
+            {campaign.category}
+
+          </span>
+
+
+
+          <h1>
+
+            {campaign.title}
+
+          </h1>
+
+
+
+          <p>
+
+            {campaign.description}
+
+          </p>
+
+
+
+          <small>
+
+            Created by {campaign.creator} · {campaign.country}
+
+          </small>
 
 
         </div>
 
 
 
+
+
+        <div className="funding-card">
+
+
+          <h3>
+
+            Funding Progress
+
+          </h3>
+
+
+
+          <div className="progress">
+
+
+            <div
+
+              style={{
+
+                width: `${progress}%`
+
+              }}
+
+            />
+
+          </div>
+
+
+
+          <h2>
+
+            ${campaign.raised.toLocaleString()}
+
+          </h2>
+
+
+
+          <p>
+
+            raised of ${campaign.goal.toLocaleString()}
+
+          </p>
+
+
+
+          <p>
+
+            {campaign.supporters} supporters
+
+          </p>
+
+
+
+          <button className="btn btn-primary">
+
+            Support This Project
+
+          </button>
+
+
+        </div>
+
+
       </section>
 
 
 
 
 
-      <section className="categories">
+      <section className="campaign-body">
 
 
-        <button className="category active">
-
-          All
-
-        </button>
+        <div className="story-card">
 
 
-        <button className="category">
+          <h2>
 
-          Energy
+            The Story
 
-        </button>
-
-
-        <button className="category">
-
-          Technology
-
-        </button>
+          </h2>
 
 
-        <button className="category">
+          <p>
 
-          Agriculture
+            {campaign.story}
 
-        </button>
-
-
-        <button className="category">
-
-          Community
-
-        </button>
+          </p>
 
 
-      </section>
+        </div>
 
 
 
 
 
-
-      <section className="campaign-grid">
-
+        <div className="rewards-card">
 
 
-        {campaigns.map((campaign)=>{
+          <h2>
 
+            Rewards
 
-          const percentage = Math.round(
-
-            (campaign.raised / campaign.goal) * 100
-
-          );
+          </h2>
 
 
 
-          return (
+          {campaign.rewards.map((reward) => (
 
 
-            <article
+            <div
 
-              key={campaign.id}
+              key={reward.amount}
 
-              className="campaign-card"
+              className="reward"
 
             >
 
 
-              <div className="campaign-image">
+              <h3>
 
-                <div>
+                ${reward.amount}
 
-                  {campaign.category}
+              </h3>
 
-                </div>
 
-              </div>
+              <h4>
 
+                {reward.title}
 
+              </h4>
 
 
+              <p>
 
-              <div className="campaign-content">
+                {reward.description}
 
+              </p>
 
-                <span className="campaign-category">
 
-                  {campaign.category}
 
-                </span>
+              <button className="btn btn-primary">
 
+                Choose Reward
 
+              </button>
 
-                <h2>
 
-                  {campaign.title}
+            </div>
 
-                </h2>
 
+          ))}
 
 
-                <p>
-
-                  {campaign.description}
-
-                </p>
-
-
-
-                <small>
-
-                  By {campaign.creator} · {campaign.country}
-
-                </small>
-
-
-
-
-
-                <div className="progress">
-
-
-                  <div
-
-                    style={{
-
-                      width:`${percentage}%`
-
-                    }}
-
-                  />
-
-
-                </div>
-
-
-
-
-
-                <div className="campaign-stats">
-
-
-                  <strong>
-
-                    ${campaign.raised.toLocaleString()}
-
-                  </strong>
-
-
-                  <span>
-
-                    of ${campaign.goal.toLocaleString()}
-
-                  </span>
-
-
-                </div>
-
-
-
-                <p>
-
-                  {campaign.supporters} supporters
-
-                </p>
-
-
-
-
-
-                <Link
-
-                  href={`/campaigns/${campaign.id}`}
-
-                  className="btn btn-primary"
-
-                >
-
-                  View Project
-
-                </Link>
-
-
-
-              </div>
-
-
-
-            </article>
-
-
-          );
-
-
-        })}
-
+        </div>
 
 
       </section>
-
 
 
     </main>
