@@ -2,7 +2,42 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 
-const campaigns = {
+type Campaign = {
+
+  title: string;
+
+  category: string;
+
+  creator: string;
+
+  country: string;
+
+  description: string;
+
+  story: string;
+
+  raised: number;
+
+  goal: number;
+
+  supporters: number;
+
+  rewards: {
+
+    amount: number;
+
+    title: string;
+
+    description: string;
+
+  }[];
+
+};
+
+
+
+const campaigns: Record<string, Campaign> = {
+
 
   "solar-africa": {
 
@@ -18,49 +53,36 @@ const campaigns = {
       "Affordable solar-powered solutions helping rural communities access clean energy.",
 
     story:
-      "Millions of families across Africa still lack reliable access to electricity. This project builds affordable solar systems that empower communities, schools, and small businesses with clean energy.",
+      "Millions of families across Africa still lack reliable access to electricity. This project builds affordable solar systems that empower communities.",
 
     raised: 25000,
 
     goal: 50000,
 
-    supporters:120,
+    supporters: 120,
 
 
-    rewards:[
+    rewards: [
 
       {
 
-        amount:20,
+        amount: 20,
 
-        title:"Supporter",
+        title: "Supporter",
 
         description:
-        "Receive project updates and a thank-you message."
+          "Receive project updates and a thank-you message."
 
       },
 
-
       {
 
-        amount:100,
+        amount: 100,
 
-        title:"Early Supporter",
-
-        description:
-        "Receive updates and exclusive project materials."
-
-      },
-
-
-      {
-
-        amount:500,
-
-        title:"Impact Partner",
+        title: "Early Supporter",
 
         description:
-        "Become a recognized supporter of the solar initiative."
+          "Receive exclusive project updates."
 
       }
 
@@ -71,49 +93,37 @@ const campaigns = {
 
   "smart-farming": {
 
-    title:"Smart Farming Technology",
+    title: "Smart Farming Technology",
 
-    category:"Agriculture",
+    category: "Agriculture",
 
-    creator:"David Okoro",
+    creator: "David Okoro",
 
-    country:"Nigeria 🇳🇬",
+    country: "Nigeria 🇳🇬",
 
     description:
-    "IoT farming tools helping small farmers improve crop production.",
+      "IoT farming tools helping small farmers improve crop production.",
 
     story:
-    "Small farmers face challenges with unpredictable weather and limited access to technology. This project provides smart farming tools to improve productivity.",
+      "Smart farming technology helps farmers increase productivity using affordable digital tools.",
 
-    raised:18000,
+    raised: 18000,
 
-    goal:40000,
+    goal: 40000,
 
-    supporters:86,
+    supporters: 86,
 
 
-    rewards:[
-
-      {
-
-        amount:25,
-
-        title:"Farm Supporter",
-
-        description:
-        "Receive project updates."
-
-      },
-
+    rewards: [
 
       {
 
-        amount:250,
+        amount: 25,
 
-        title:"Technology Partner",
+        title: "Farm Supporter",
 
         description:
-        "Get early access updates."
+          "Receive progress updates."
 
       }
 
@@ -125,25 +135,32 @@ const campaigns = {
 
 
 
-type Props = {
+type PageProps = {
 
-  params:{
-    id:string;
-  };
+  params: Promise<{
+
+    id: string;
+
+  }>;
 
 };
 
 
 
-export default function CampaignPage({params}:Props){
+export default async function CampaignPage({
+
+  params
+
+}: PageProps) {
 
 
-  const campaign =
-    campaigns[params.id as keyof typeof campaigns];
+  const { id } = await params;
 
 
+  const campaign = campaigns[id];
 
-  if(!campaign){
+
+  if (!campaign) {
 
     notFound();
 
@@ -164,25 +181,15 @@ export default function CampaignPage({params}:Props){
     <main className="campaign-detail">
 
 
+      <Link href="/campaigns">
 
-      <Link
-
-        href="/campaigns"
-
-        className="back-link"
-
-      >
-
-        ← Back to projects
+        ← Back to Projects
 
       </Link>
 
 
 
-
-
       <section className="campaign-hero">
-
 
 
         <div className="campaign-main">
@@ -214,10 +221,13 @@ export default function CampaignPage({params}:Props){
 
           <small>
 
-            Created by {campaign.creator} · {campaign.country}
+            Created by {campaign.creator}
+
+            {" · "}
+
+            {campaign.country}
 
           </small>
-
 
 
         </div>
@@ -226,7 +236,7 @@ export default function CampaignPage({params}:Props){
 
 
 
-        <div className="funding-card">
+        <aside className="funding-card">
 
 
           <h3>
@@ -244,14 +254,13 @@ export default function CampaignPage({params}:Props){
 
               style={{
 
-                width:`${progress}%`
+                width: `${progress}%`
 
               }}
 
             />
 
           </div>
-
 
 
 
@@ -279,17 +288,14 @@ export default function CampaignPage({params}:Props){
 
 
 
-
           <button className="btn btn-primary">
 
-            Support This Project
+            Support Project
 
           </button>
 
 
-
-        </div>
-
+        </aside>
 
 
       </section>
@@ -298,10 +304,7 @@ export default function CampaignPage({params}:Props){
 
 
 
-
-
       <section className="campaign-body">
-
 
 
         <div className="story-card">
@@ -314,6 +317,7 @@ export default function CampaignPage({params}:Props){
           </h2>
 
 
+
           <p>
 
             {campaign.story}
@@ -322,8 +326,6 @@ export default function CampaignPage({params}:Props){
 
 
         </div>
-
-
 
 
 
@@ -340,8 +342,7 @@ export default function CampaignPage({params}:Props){
 
 
 
-          {campaign.rewards.map((reward)=> (
-
+          {campaign.rewards.map((reward) => (
 
             <div
 
@@ -383,20 +384,15 @@ export default function CampaignPage({params}:Props){
               </button>
 
 
-
             </div>
 
-
           ))}
-
 
 
         </div>
 
 
-
       </section>
-
 
 
     </main>
