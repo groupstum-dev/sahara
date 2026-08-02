@@ -1,276 +1,235 @@
-import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase-server";
+import Link from "next/link";
 
 
-export default async function Dashboard() {
+export default function DashboardPage(){
 
+  const projects = [
 
-  const supabase = await createClient();
+    {
+      name:"Solar Africa",
+      status:"Active",
+      raised:"$41,250",
+      progress:"82%"
+    },
 
+    {
+      name:"Smart Farming AI",
+      status:"Draft",
+      raised:"$0",
+      progress:"0%"
+    },
 
-  const {
-    data: {
-      user
-    }
-  } = await supabase.auth.getUser();
-
-
-
-  if (!user) {
-
-    redirect("/login");
-
-  }
-
-
-
-  const profile = user.user_metadata;
-
-
-
-  const role = profile?.role || "backer";
-
-  const name = profile?.full_name || "Sahara User";
-
-
+  ];
 
 
   return (
 
-    <main className="dashboard">
+    <main>
 
 
-      <section className="dashboard-header">
+      <nav className="navbar">
 
 
-        <div>
-
-          <h1>
-            Welcome, {name}
-          </h1>
+        <div className="logo">
+          Sahara
+        </div>
 
 
-          <p>
-            Manage your Sahara experience.
-          </p>
+        <div className="nav-links">
+
+
+          <Link href="/campaigns">
+            Discover
+          </Link>
+
+
+          <Link href="/create" className="nav-button">
+            New Campaign
+          </Link>
+
+
+        </div>
+
+
+      </nav>
+
+
+
+
+
+      <section className="dashboard">
+
+
+        <div className="badge">
+
+          Creator Dashboard
+
+        </div>
+
+
+
+        <h1 className="section-title">
+
+          Welcome back 👋
+
+        </h1>
+
+
+
+        <p className="section-text">
+
+          Manage your campaigns, track support,
+          and grow your community.
+
+        </p>
+
+
+
+
+
+
+        <div className="trust">
+
+
+          <div>
+
+            <strong>
+              $41K
+            </strong>
+
+            <p>
+              Total Raised
+            </p>
+
+          </div>
+
+
+
+          <div>
+
+            <strong>
+              2
+            </strong>
+
+            <p>
+              Campaigns
+            </p>
+
+          </div>
+
+
+
+          <div>
+
+            <strong>
+              840
+            </strong>
+
+            <p>
+              Supporters
+            </p>
+
+          </div>
+
 
 
         </div>
 
 
 
-        <span
-          className={
-            role === "creator"
-              ? "badge badge-creator"
-              : "badge badge-backer"
-          }
-        >
 
-          {role === "creator"
-            ? "Creator"
-            : "Backer"}
 
-        </span>
 
 
+        <section className="campaign-section">
 
-      </section>
 
+          <h2 className="section-title">
 
+            Your Campaigns
 
+          </h2>
 
 
-      <section className="dashboard-grid">
 
 
+          <div className="campaign-grid">
 
-        <aside className="sidebar">
 
+            {projects.map((project)=>(
 
-          <h3>
-            Sahara
-          </h3>
 
+              <div
+                className="campaign-card"
+                key={project.name}
+              >
 
-          <nav>
 
+                <div className="campaign-image">
 
-            <p>
-              Dashboard
-            </p>
+                </div>
 
 
-            {role === "creator" && (
 
-              <>
 
-                <p>
-                  My Campaigns
-                </p>
+                <div className="campaign-content">
 
 
-                <p>
-                  Create Campaign
-                </p>
+                  <div className="badge">
 
+                    {project.status}
 
-                <p>
-                  Rewards
-                </p>
+                  </div>
 
 
-              </>
 
-            )}
+                  <h3>
 
+                    {project.name}
 
+                  </h3>
 
-            {role === "backer" && (
 
-              <>
 
-                <p>
-                  Discover Projects
-                </p>
+                  <p>
 
+                    Funding progress
 
-                <p>
-                  Supported Projects
-                </p>
+                  </p>
 
 
-                <p>
-                  Saved Projects
-                </p>
 
 
-              </>
+                  <div className="progress">
 
-            )}
+                    <div
+                      style={{
+                        width:project.progress
+                      }}
+                    />
 
+                  </div>
 
-          </nav>
 
 
-        </aside>
+                  <strong>
 
+                    {project.raised}
 
+                  </strong>
 
 
 
-
-        <section className="content">
-
-
-          {role === "creator" ? (
-
-
-            <>
-
-              <h2>
-                Creator Dashboard
-              </h2>
-
-
-              <div className="dashboard-card">
-
-
-                <h3>
-                  Start your first campaign
-                </h3>
-
-
-                <p>
-                  Share your idea with the world and
-                  receive support from global backers.
-                </p>
-
-
-                <button className="btn btn-primary">
-
-                  Create Campaign
-
-                </button>
+                </div>
 
 
               </div>
 
 
-              <div className="dashboard-card">
+            ))}
 
 
-                <h3>
-                  Campaign Overview
-                </h3>
-
-
-                <p>
-                  No campaigns created yet.
-                </p>
-
-
-              </div>
-
-
-            </>
-
-
-          ) : (
-
-
-            <>
-
-
-              <h2>
-                Backer Dashboard
-              </h2>
-
-
-              <div className="dashboard-card">
-
-
-                <h3>
-                  Discover African Innovation
-                </h3>
-
-
-                <p>
-                  Explore projects from creators
-                  building solutions across Africa.
-                </p>
-
-
-                <button className="btn btn-primary">
-
-                  Explore Projects
-
-                </button>
-
-
-              </div>
-
-
-
-              <div className="dashboard-card">
-
-
-                <h3>
-                  Your Support
-                </h3>
-
-
-                <p>
-                  You have not supported any projects yet.
-                </p>
-
-
-              </div>
-
-
-            </>
-
-          )}
+          </div>
 
 
 
@@ -278,8 +237,18 @@ export default async function Dashboard() {
 
 
 
+
       </section>
 
+
+
+
+
+      <footer>
+
+        © 2026 Sahara
+
+      </footer>
 
 
     </main>
