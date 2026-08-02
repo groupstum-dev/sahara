@@ -1684,3 +1684,24 @@ footer {
   border-color:var(--primary);
 
 }
+.campaign-card {
+
+  display:block;
+
+  color:inherit;
+
+}
+
+
+.campaign-card strong {
+
+  font-size:22px;
+
+}
+
+
+.campaign-card span {
+
+  color:var(--muted);
+
+}
