@@ -1726,3 +1726,24 @@ footer {
   );
 
 }
+.dashboard > .badge {
+
+  margin-bottom:20px;
+
+}
+
+
+.dashboard .campaign-section {
+
+  padding-left:0;
+
+  padding-right:0;
+
+}
+
+
+.dashboard .trust {
+
+  margin-bottom:50px;
+
+}
