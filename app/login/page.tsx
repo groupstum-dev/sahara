@@ -6,7 +6,9 @@ import { createClient } from "@/lib/supabase";
 
 export default function Login() {
 
+
   const supabase = createClient();
+
 
   const [email, setEmail] = useState("");
 
@@ -14,28 +16,45 @@ export default function Login() {
 
   const [message, setMessage] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
 
 
   async function login() {
 
-    const { error } = await supabase.auth.signInWithPassword({
 
-      email,
+    setLoading(true);
 
-      password
+    setMessage("");
 
-    });
+
+    const { error } =
+      await supabase.auth.signInWithPassword({
+
+        email,
+
+        password
+
+      });
+
 
 
     if (error) {
 
       setMessage(error.message);
 
+
     } else {
 
-      window.location.href = "/dashboard";
+
+      window.location.href="/dashboard";
+
 
     }
+
+
+    setLoading(false);
+
 
   }
 
@@ -45,12 +64,16 @@ export default function Login() {
 
     <main className="auth">
 
+
       <h1>
         Login to Sahara
       </h1>
 
 
+
       <input
+
+        className="input"
 
         type="email"
 
@@ -58,12 +81,15 @@ export default function Login() {
 
         value={email}
 
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e)=>setEmail(e.target.value)}
 
       />
 
 
+
       <input
+
+        className="input"
 
         type="password"
 
@@ -71,19 +97,35 @@ export default function Login() {
 
         value={password}
 
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e)=>setPassword(e.target.value)}
 
       />
 
 
-      <button onClick={login}>
-        Login
+
+      <button
+
+        className="btn btn-primary"
+
+        onClick={login}
+
+        disabled={loading}
+
+      >
+
+        {loading ? "Logging in..." : "Login"}
+
       </button>
 
 
+
       <p>
+
         {message}
+
       </p>
+
+
 
     </main>
 
