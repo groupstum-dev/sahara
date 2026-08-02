@@ -1,30 +1,59 @@
 export default function CreateCampaignPage() {
   return (
     <main className="dashboard">
-      <div className="dashboard-card">
-        <h1>Start a Campaign</h1>
 
-        <p>
-          Launch your innovation and raise support from people around the world.
+      <div className="dashboard-card">
+
+        <div className="badge">
+          Create Campaign
+        </div>
+
+        <h1 className="section-title">
+          Launch your idea
+        </h1>
+
+        <p className="section-text">
+          Share your innovation with supporters around the world.
         </p>
 
+
         <form className="campaign-form">
-          <input type="text" placeholder="Campaign title" />
+
+          <input
+            placeholder="Campaign title"
+          />
+
 
           <textarea
-            placeholder="Describe your project"
+            placeholder="Tell your story..."
             rows={6}
           />
 
-          <input type="number" placeholder="Funding goal (USD)" />
 
-          <input type="text" placeholder="Category" />
+          <input
+            placeholder="Funding goal ($)"
+            type="number"
+          />
 
-          <button className="nav-button" type="submit">
-            Create Campaign
+
+          <input
+            placeholder="Category"
+          />
+
+
+          <button
+            className="btn-primary"
+            type="button"
+          >
+            Publish Campaign
           </button>
+
+
         </form>
+
+
       </div>
+
     </main>
   );
 }
