@@ -1705,3 +1705,24 @@ footer {
   color:var(--muted);
 
 }
+.campaign-image {
+
+  height:280px;
+
+  border-radius:28px;
+
+  margin:35px 0;
+
+  background:
+
+  linear-gradient(
+
+    135deg,
+
+    #bbf7d0,
+
+    #16a34a
+
+  );
+
+}
