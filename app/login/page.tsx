@@ -2,15 +2,15 @@
 
 
 import { useState } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase";
 
 
 
-export default function Login() {
+export default function Login(){
 
 
   const supabase = createClient();
-
 
 
   const [email,setEmail] = useState("");
@@ -22,17 +22,17 @@ export default function Login() {
 
 
 
+
   async function login(){
 
 
-    const {error} =
-      await supabase.auth.signInWithPassword({
+    const {error}=await supabase.auth.signInWithPassword({
 
-        email,
+      email,
 
-        password
+      password
 
-      });
+    });
 
 
 
@@ -42,7 +42,7 @@ export default function Login() {
 
     }
 
-    else {
+    else{
 
       window.location.href="/dashboard";
 
@@ -54,66 +54,114 @@ export default function Login() {
 
 
 
+
   return (
 
     <main className="auth">
 
 
-      <h1>
-
-        Login to Sahara
-
-      </h1>
+      <div className="dashboard-card auth-card">
 
 
+        <div className="logo">
 
+          Sahara
 
-      <input
-
-        type="email"
-
-        placeholder="Email"
-
-        value={email}
-
-        onChange={(e)=>setEmail(e.target.value)}
-
-      />
+        </div>
 
 
 
 
+        <h1>
 
-      <input
+          Welcome back
 
-        type="password"
-
-        placeholder="Password"
-
-        value={password}
-
-        onChange={(e)=>setPassword(e.target.value)}
-
-      />
+        </h1>
 
 
 
+        <p className="section-text">
 
+          Login to manage your campaigns
+          and connect with supporters.
 
-      <button onClick={login}>
-
-        Login
-
-      </button>
+        </p>
 
 
 
 
-      <p>
+        <input
 
-        {message}
+          type="email"
 
-      </p>
+          placeholder="Email address"
+
+          value={email}
+
+          onChange={(e)=>setEmail(e.target.value)}
+
+        />
+
+
+
+
+        <input
+
+          type="password"
+
+          placeholder="Password"
+
+          value={password}
+
+          onChange={(e)=>setPassword(e.target.value)}
+
+        />
+
+
+
+
+
+        <button
+          className="btn-primary"
+          onClick={login}
+        >
+
+          Login
+
+        </button>
+
+
+
+
+        <p>
+
+          {message}
+
+        </p>
+
+
+
+
+
+        <p>
+
+          Don't have an account?
+
+          {" "}
+
+          <Link href="/signup">
+
+            Create one
+
+          </Link>
+
+
+        </p>
+
+
+
+      </div>
+
 
 
     </main>
