@@ -1,262 +1,97 @@
-export default function Home() {
+import Navbar from "@/components/Navbar";
 
-  return (
+import Hero from "@/components/Hero";
 
-    <main className="page">
+import Stats from "@/components/Stats";
 
+import CampaignCard from "@/components/CampaignCard";
 
-      <nav className="navbar">
+import Footer from "@/components/Footer";
 
 
-        <div className="logo">
 
-          Sahara
+export default function Home(){
 
-        </div>
 
+return (
 
+<main>
 
-        <div className="nav-links">
 
+<Navbar />
 
-          <a href="/campaigns">
 
-            Discover
+<Hero />
 
-          </a>
 
+<Stats />
 
-          <a href="/signup">
 
-            Start a Campaign
 
-          </a>
+<section className="projects">
 
 
-          <a href="/login">
+<h2>
 
-            Login
+Featured Innovations
 
-          </a>
+</h2>
 
 
-        </div>
 
+<div className="campaign-grid">
 
-      </nav>
 
+<CampaignCard
 
+title="Solar Africa"
 
+description="Affordable clean energy solutions."
 
+amount="$42,500 raised"
 
-      <section className="hero">
+/>
 
 
-        <div className="hero-content">
 
+<CampaignCard
 
-          <h1>
+title="Agri AI"
 
-            Empowering African
+description="Artificial intelligence for farmers."
 
-            <span>
+amount="$18,200 raised"
 
-              Innovation
+/>
 
-            </span>
 
-            Through Global Support
 
-          </h1>
 
+<CampaignCard
 
+title="Health Connect"
 
+description="Digital healthcare access."
 
-          <p>
+amount="$31,700 raised"
 
-            Sahara is a reward-based crowdfunding
-            platform helping African creators,
-            entrepreneurs, and innovators bring
-            ideas to life with global support.
+/>
 
-          </p>
 
 
+</div>
 
 
-          <div className="buttons">
+</section>
 
 
-            <a
 
-              href="/signup"
+<Footer />
 
-              className="primary"
 
-            >
+</main>
 
-              Start a Campaign
+);
 
-            </a>
-
-
-
-            <a
-
-              href="/campaigns"
-
-              className="secondary"
-
-            >
-
-              Explore Projects
-
-            </a>
-
-
-          </div>
-
-
-        </div>
-
-
-
-
-
-        <div className="card">
-
-
-          <h3>
-
-            Featured Project
-
-          </h3>
-
-
-
-          <p>
-
-            Solar-powered solutions built by
-            African innovators.
-
-          </p>
-
-
-
-
-          <div className="progress">
-
-
-            <div />
-
-          </div>
-
-
-
-
-          <small>
-
-            $25,000 raised of $50,000 goal
-
-          </small>
-
-
-        </div>
-
-
-
-      </section>
-
-
-
-
-
-
-      <section className="features">
-
-
-        <div>
-
-
-          <h2>
-
-            Creators
-
-          </h2>
-
-
-          <p>
-
-            Launch ideas, products and innovations.
-
-          </p>
-
-
-        </div>
-
-
-
-
-        <div>
-
-
-          <h2>
-
-            Backers
-
-          </h2>
-
-
-          <p>
-
-            Discover and support meaningful projects.
-
-          </p>
-
-
-        </div>
-
-
-
-
-
-        <div>
-
-
-          <h2>
-
-            Global Community
-
-          </h2>
-
-
-          <p>
-
-            Connect Africa with supporters worldwide.
-
-          </p>
-
-
-        </div>
-
-
-
-      </section>
-
-
-
-
-
-      <footer>
-
-        © 2026 Sahara. Building the future of African innovation.
-
-      </footer>
-
-
-
-    </main>
-
-  );
 
 }
