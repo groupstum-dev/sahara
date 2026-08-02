@@ -1803,3 +1803,48 @@ footer {
   font-weight:700;
 
 }
+.campaign-input {
+
+width:100%;
+
+padding:20px;
+
+border-radius:20px;
+
+border:1px solid var(--border);
+
+font-size:16px;
+
+font-family:inherit;
+
+margin:25px 0;
+
+}
+
+
+
+.ai-result {
+
+margin-top:40px;
+
+padding:30px;
+
+background:white;
+
+border-radius:25px;
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,.08);
+
+}
+
+
+
+.ai-result h2 {
+
+font-size:32px;
+
+margin-bottom:15px;
+
+}
