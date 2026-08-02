@@ -1,108 +1,92 @@
 "use client";
 
-
 import { useState } from "react";
-
 import { createClient } from "@/lib/supabase";
 
 
+export default function Login() {
 
-export default function Login(){
+  const supabase = createClient();
 
+  const [email, setEmail] = useState("");
 
-const supabase=createClient();
+  const [password, setPassword] = useState("");
 
-
-const [email,setEmail]=useState("");
-
-const [password,setPassword]=useState("");
-
-const [message,setMessage]=useState("");
+  const [message, setMessage] = useState("");
 
 
 
-async function login(){
+  async function login() {
+
+    const { error } = await supabase.auth.signInWithPassword({
+
+      email,
+
+      password
+
+    });
 
 
-const {error}=await supabase.auth.signInWithPassword({
+    if (error) {
 
-email,
+      setMessage(error.message);
 
-password
+    } else {
 
-});
+      window.location.href = "/dashboard";
 
+    }
 
-if(error){
-
-setMessage(error.message);
-
-}
-
-else{
-
-window.location.href="/dashboard";
-
-}
-
-
-}
+  }
 
 
 
-return (
+  return (
 
-<main className="auth">
+    <main className="auth">
 
-
-<h1>
-
-Login to Sahara
-
-</h1>
+      <h1>
+        Login to Sahara
+      </h1>
 
 
-<input
+      <input
 
-placeholder="Email"
+        type="email"
 
-value={email}
+        placeholder="Email"
 
-onChange={(e)=>setEmail(e.target.value)}
+        value={email}
 
-/>
+        onChange={(e) => setEmail(e.target.value)}
 
-
-<input
-
-type="password"
-
-placeholder="Password"
-
-value={password}
-
-onChange={(e)=>setPassword(e.target.value)}
-
-/>
+      />
 
 
-<button onClick={login}>
+      <input
 
-Login
+        type="password"
 
-</button>
+        placeholder="Password"
+
+        value={password}
+
+        onChange={(e) => setPassword(e.target.value)}
+
+      />
 
 
-<p>
-
-{message}
-
-</p>
+      <button onClick={login}>
+        Login
+      </button>
 
 
-</main>
+      <p>
+        {message}
+      </p>
 
-);
+    </main>
 
+  );
 
 }
