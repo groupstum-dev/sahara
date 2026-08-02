@@ -1,377 +1,140 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 
 
-const campaigns = {
+const campaigns = [
 
-  "solar-africa": {
+{
+id:"solar-africa",
+title:"Solar Africa",
+description:"Affordable clean energy solutions for communities.",
+raised:"$42,500",
+goal:"$50,000"
+},
 
-    title: "Solar Energy Solutions",
+{
+id:"agri-ai",
+title:"Agri AI",
+description:"Artificial intelligence tools for farmers.",
+raised:"$18,200",
+goal:"$30,000"
+},
 
-    category: "Energy",
+{
+id:"health-connect",
+title:"Health Connect",
+description:"Digital healthcare access across Africa.",
+raised:"$31,700",
+goal:"$45,000"
+}
 
-    creator: "Amina Mwangi",
+];
 
-    country: "Kenya 🇰🇪",
 
-    description:
-      "Affordable solar-powered solutions helping rural communities access clean energy.",
 
-    story:
-      "Millions of families across Africa still lack reliable access to electricity. This project builds affordable solar systems that empower communities, schools, and small businesses with clean energy.",
+export default function Campaigns(){
 
-    raised: 25000,
 
-    goal: 50000,
+return (
 
-    supporters: 120,
+<main className="dashboard">
 
 
-    rewards: [
+<h1>
 
-      {
-        amount: 20,
-        title: "Supporter",
-        description:
-          "Receive project updates and a thank-you message."
-      },
+Discover Innovations
 
+</h1>
 
-      {
-        amount: 100,
-        title: "Early Supporter",
-        description:
-          "Receive updates and exclusive project materials."
-      },
 
+<p>
 
-      {
-        amount: 500,
-        title: "Impact Partner",
-        description:
-          "Become a recognized supporter of the solar initiative."
-      }
+Support African creators building the future.
 
-    ]
+</p>
 
-  },
 
 
-  "smart-farming": {
+<div className="campaign-grid">
 
-    title: "Smart Farming Technology",
 
-    category: "Agriculture",
+{
 
-    creator: "David Okoro",
+campaigns.map((campaign)=>(
 
-    country: "Nigeria 🇳🇬",
 
-    description:
-      "IoT farming tools helping small farmers improve crop production.",
+<Link
 
-    story:
-      "Small farmers face challenges with unpredictable weather and limited access to technology. This project provides smart farming tools to improve productivity.",
+href={`/campaigns/${campaign.id}`}
 
-    raised: 18000,
+key={campaign.id}
 
-    goal: 40000,
+className="campaign-card"
 
-    supporters: 86,
+>
 
 
-    rewards: [
+<div className="campaign-image"/>
 
-      {
-        amount: 25,
-        title: "Farm Supporter",
-        description:
-          "Receive project updates."
-      },
 
 
-      {
-        amount: 250,
-        title: "Technology Partner",
-        description:
-          "Get early access updates."
-      }
+<div className="campaign-body">
 
-    ]
 
-  }
+<h2>
 
-};
+{campaign.title}
 
+</h2>
 
 
-type PageProps = {
 
-  params: Promise<{
+<p>
 
-    id: string;
+{campaign.description}
 
-  }>;
+</p>
 
-};
 
 
+<div className="progress">
 
-export default async function CampaignPage({
+<div></div>
 
-  params
+</div>
 
-}: PageProps) {
 
 
-  const { id } = await params;
+<strong>
 
+{campaign.raised}
 
+</strong>
 
-  const campaign =
-    campaigns[id as keyof typeof campaigns];
+<span>
 
+&nbsp; raised of {campaign.goal}
 
+</span>
 
-  if (!campaign) {
 
-    notFound();
 
-  }
+</div>
 
 
+</Link>
 
-  const progress = Math.round(
 
-    (campaign.raised / campaign.goal) * 100
+))
 
-  );
+}
 
 
+</div>
 
-  return (
 
-    <main className="campaign-detail">
+</main>
 
+);
 
-      <Link
-
-        href="/campaigns"
-
-        className="back-link"
-
-      >
-
-        ← Back to projects
-
-      </Link>
-
-
-
-
-      <section className="campaign-hero">
-
-
-        <div className="campaign-main">
-
-
-          <span className="campaign-category">
-
-            {campaign.category}
-
-          </span>
-
-
-
-          <h1>
-
-            {campaign.title}
-
-          </h1>
-
-
-
-          <p>
-
-            {campaign.description}
-
-          </p>
-
-
-
-          <small>
-
-            Created by {campaign.creator} · {campaign.country}
-
-          </small>
-
-
-        </div>
-
-
-
-
-
-        <div className="funding-card">
-
-
-          <h3>
-
-            Funding Progress
-
-          </h3>
-
-
-
-          <div className="progress">
-
-
-            <div
-
-              style={{
-
-                width: `${progress}%`
-
-              }}
-
-            />
-
-          </div>
-
-
-
-          <h2>
-
-            ${campaign.raised.toLocaleString()}
-
-          </h2>
-
-
-
-          <p>
-
-            raised of ${campaign.goal.toLocaleString()}
-
-          </p>
-
-
-
-          <p>
-
-            {campaign.supporters} supporters
-
-          </p>
-
-
-
-          <button className="btn btn-primary">
-
-            Support This Project
-
-          </button>
-
-
-        </div>
-
-
-      </section>
-
-
-
-
-
-      <section className="campaign-body">
-
-
-        <div className="story-card">
-
-
-          <h2>
-
-            The Story
-
-          </h2>
-
-
-          <p>
-
-            {campaign.story}
-
-          </p>
-
-
-        </div>
-
-
-
-
-
-        <div className="rewards-card">
-
-
-          <h2>
-
-            Rewards
-
-          </h2>
-
-
-
-          {campaign.rewards.map((reward) => (
-
-
-            <div
-
-              key={reward.amount}
-
-              className="reward"
-
-            >
-
-
-              <h3>
-
-                ${reward.amount}
-
-              </h3>
-
-
-              <h4>
-
-                {reward.title}
-
-              </h4>
-
-
-              <p>
-
-                {reward.description}
-
-              </p>
-
-
-
-              <button className="btn btn-primary">
-
-                Choose Reward
-
-              </button>
-
-
-            </div>
-
-
-          ))}
-
-
-        </div>
-
-
-      </section>
-
-
-    </main>
-
-  );
 
 }
