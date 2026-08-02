@@ -1636,3 +1636,51 @@ footer {
 
 
 }
+.campaign-form {
+
+  margin-top:40px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:20px;
+
+}
+
+
+.campaign-form input,
+.campaign-form textarea {
+
+  width:100%;
+
+  padding:18px;
+
+  border-radius:18px;
+
+  border:1px solid var(--border);
+
+  font-size:16px;
+
+  font-family:inherit;
+
+  background:white;
+
+}
+
+
+.campaign-form textarea {
+
+  resize:none;
+
+}
+
+
+.campaign-form input:focus,
+.campaign-form textarea:focus {
+
+  outline:none;
+
+  border-color:var(--primary);
+
+}
